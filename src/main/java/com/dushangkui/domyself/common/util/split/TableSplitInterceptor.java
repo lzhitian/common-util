@@ -28,91 +28,91 @@ import org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory;
 import com.dushangkui.domyself.common.util.ContextHelper;
 import com.dushangkui.domyself.common.util.annotation.TableSplit;
 
-@Intercepts({ @Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class }) })
+@Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class})})
 public class TableSplitInterceptor implements Interceptor {
-	private Log log = LogFactory.getLog(getClass());
-	private static final ObjectFactory DEFAULT_OBJECT_FACTORY = new DefaultObjectFactory();
-	private static final ObjectWrapperFactory DEFAULT_OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
+    private Log log = LogFactory.getLog(getClass());
+    private static final ObjectFactory DEFAULT_OBJECT_FACTORY = new DefaultObjectFactory();
+    private static final ObjectWrapperFactory DEFAULT_OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
 
-	@Override
-	public Object intercept(Invocation invocation) throws Throwable {
-		StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
-		MetaObject metaStatementHandler = MetaObject.forObject(statementHandler, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY);
+    @Override
+    public Object intercept(Invocation invocation) throws Throwable {
+        StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
+        MetaObject metaStatementHandler = MetaObject.forObject(statementHandler, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY);
 
-		BoundSql boundSql = (BoundSql) metaStatementHandler.getValue("delegate.boundSql");
-		// Configuration configuration = (Configuration) metaStatementHandler
-		// .getValue("delegate.configuration");
-		Object parameterObject = metaStatementHandler.getValue("delegate.boundSql.parameterObject");
-		doSplitTable(metaStatementHandler,parameterObject);
-		// 传递给下一个拦截器处理
-		return invocation.proceed();
+        BoundSql boundSql = (BoundSql) metaStatementHandler.getValue("delegate.boundSql");
+        // Configuration configuration = (Configuration) metaStatementHandler
+        // .getValue("delegate.configuration");
+        Object parameterObject = metaStatementHandler.getValue("delegate.boundSql.parameterObject");
+        doSplitTable(metaStatementHandler, parameterObject);
+        // 传递给下一个拦截器处理
+        return invocation.proceed();
 
-	}
+    }
 
-	@Override
-	public Object plugin(Object target) {
-		// 当目标类是StatementHandler类型时，才包装目标类，否者直接返回目标本身,减少目标被代理的次数
-		if (target instanceof StatementHandler) {
-			return Plugin.wrap(target, this);
-		} else {
-			return target;
-		}
-	}
+    @Override
+    public Object plugin(Object target) {
+        // 当目标类是StatementHandler类型时，才包装目标类，否者直接返回目标本身,减少目标被代理的次数
+        if (target instanceof StatementHandler) {
+            return Plugin.wrap(target, this);
+        } else {
+            return target;
+        }
+    }
 
-	@Override
-	public void setProperties(Properties properties) {
+    @Override
+    public void setProperties(Properties properties) {
 
-	}
+    }
 
-	private void doSplitTable(MetaObject metaStatementHandler,Object param ) throws Exception {
-		String originalSql = (String) metaStatementHandler.getValue("delegate.boundSql.sql");
-		if (originalSql != null && !originalSql.equals("")) {
-			log.info("分表前的SQL：\n" + originalSql);
-			MappedStatement mappedStatement = (MappedStatement) metaStatementHandler.getValue("delegate.mappedStatement");
-			String id = mappedStatement.getId();
-			String className = id.substring(0, id.lastIndexOf("."));
-			String methodName = id.substring(id.lastIndexOf(".") + 1);
-			Class<?> clazz = Class.forName(className);
-			ParameterMap paramMap = mappedStatement.getParameterMap();
-			Method method = findMethod(clazz.getDeclaredMethods(), methodName);
-			// 根据配置自动生成分表SQL
-			TableSplit tableSplit = null;
-			if (method != null) {
-				tableSplit = method.getAnnotation(TableSplit.class);
-			}
+    private void doSplitTable(MetaObject metaStatementHandler, Object param) throws Exception {
+        String originalSql = (String) metaStatementHandler.getValue("delegate.boundSql.sql");
+        if (originalSql != null && !originalSql.equals("")) {
+            log.info("分表前的SQL：\n" + originalSql);
+            MappedStatement mappedStatement = (MappedStatement) metaStatementHandler.getValue("delegate.mappedStatement");
+            String id = mappedStatement.getId();
+            String className = id.substring(0, id.lastIndexOf("."));
+            String methodName = id.substring(id.lastIndexOf(".") + 1);
+            Class<?> clazz = Class.forName(className);
+            ParameterMap paramMap = mappedStatement.getParameterMap();
+            Method method = findMethod(clazz.getDeclaredMethods(), methodName);
+            // 根据配置自动生成分表SQL
+            TableSplit tableSplit = null;
+            if (method != null) {
+                tableSplit = method.getAnnotation(TableSplit.class);
+            }
 
-			if (tableSplit == null) {
-				tableSplit = clazz.getAnnotation(TableSplit.class);
-			}
-			System.out.printf(JsonUtil.toString(paramMap));
-			if (tableSplit != null && tableSplit.split() && StringUtils.isNotBlank(tableSplit.strategy())) {
-				StrategyManager strategyManager = ContextHelper.getBean(StrategyManager.class);
-				String convertedSql = "";
-				String[] strategies = tableSplit.strategy().split(",");
-				for (String str : strategies) {
-					Strategy strategy = strategyManager.getStrategy(str);
-					Map<String,Object> params =new HashMap<String,Object>();
-					params.put(Strategy.TABLE_NAME, tableSplit.value());
-					params.put(Strategy.SPLIT_FIELD, tableSplit.field());
-					params.put(Strategy.EXECUTE_PARAM_DECLARE, paramMap);
-					params.put(Strategy.EXECUTE_PARAM_VALUES, param);
+            if (tableSplit == null) {
+                tableSplit = clazz.getAnnotation(TableSplit.class);
+            }
+            System.out.printf(JsonUtil.toString(paramMap));
+            if (tableSplit != null && tableSplit.split() && StringUtils.isNotBlank(tableSplit.strategy())) {
+                StrategyManager strategyManager = ContextHelper.getBean(StrategyManager.class);
+                String convertedSql = "";
+                String[] strategies = tableSplit.strategy().split(",");
+                for (String str : strategies) {
+                    Strategy strategy = strategyManager.getStrategy(str);
+                    Map<String, Object> params = new HashMap<String, Object>();
+                    params.put(Strategy.TABLE_NAME, tableSplit.value());
+                    params.put(Strategy.SPLIT_FIELD, tableSplit.field());
+                    params.put(Strategy.EXECUTE_PARAM_DECLARE, paramMap);
+                    params.put(Strategy.EXECUTE_PARAM_VALUES, param);
 
-					convertedSql = originalSql.replaceAll(tableSplit.value(), strategy.convert(params));
-				}
-				metaStatementHandler.setValue("delegate.boundSql.sql", convertedSql);
+                    convertedSql = originalSql.replaceAll(tableSplit.value(), strategy.convert(params));
+                }
+                metaStatementHandler.setValue("delegate.boundSql.sql", convertedSql);
 
-				log.info("分表后的SQL：\n" + convertedSql);
-			}
-		}
-	}
+                log.info("分表后的SQL：\n" + convertedSql);
+            }
+        }
+    }
 
-	private Method findMethod(Method[] methods, String methodName) {
-		for (Method method : methods) {
-			if (method.getName().equals(methodName)) {
-				return method;
-			}
-		}
-		return null;
-	}
+    private Method findMethod(Method[] methods, String methodName) {
+        for (Method method : methods) {
+            if (method.getName().equals(methodName)) {
+                return method;
+            }
+        }
+        return null;
+    }
 
 }

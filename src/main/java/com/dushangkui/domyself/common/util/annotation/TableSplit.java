@@ -6,16 +6,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.METHOD })
+@Target({ElementType.TYPE, ElementType.METHOD})
 public @interface TableSplit {
-	//是否分表
-	 public boolean split() default true;
-	 
-	 public String value() default "";
+    //是否分表
+    public boolean split() default true;
 
-	 public String field() default "";
-	 
-	 //获取分表策略
-	 public String strategy();
-	 
+    public String value() default "";
+
+    public String field() default "";
+
+    //获取分表策略
+    public String strategy();
+
 }

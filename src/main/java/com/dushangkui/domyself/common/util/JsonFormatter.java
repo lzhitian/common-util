@@ -25,6 +25,7 @@ import java.io.Writer;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -41,12 +42,12 @@ public class JsonFormatter {
     }
 
     private static ObjectMapper getMapper(boolean serializeNull) {
-        ThreadLocal tl = serializeNull?INCLUDE_NULL_MAPPER:NOT_INCLUDE_NULL_MAPPER;
-        if(null == tl.get()) {
+        ThreadLocal tl = serializeNull ? INCLUDE_NULL_MAPPER : NOT_INCLUDE_NULL_MAPPER;
+        if (null == tl.get()) {
             ObjectMapper mapper = new ObjectMapper();
             mapper.disable(new DeserializationConfig.Feature[]{DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES});
             mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
-            if(!serializeNull) {
+            if (!serializeNull) {
                 mapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
                 mapper.disable(new org.codehaus.jackson.map.SerializationConfig.Feature[]{org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_MAP_VALUES});
             }
@@ -54,7 +55,7 @@ public class JsonFormatter {
             tl.set(mapper);
         }
 
-        return (ObjectMapper)tl.get();
+        return (ObjectMapper) tl.get();
     }
 
     public static String toJsonString(Object obj) throws JsonGenerationException, JsonMappingException, IOException {

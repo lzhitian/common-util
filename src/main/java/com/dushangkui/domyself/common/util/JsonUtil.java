@@ -17,7 +17,7 @@ import java.util.*;
 
 /**
  * 此类描述的是：json 工具类
- * 
+ *
  * @author xujinfei
  */
 
@@ -26,13 +26,10 @@ public class JsonUtil extends JsonFormatter {
     private static final Logger LOG = LoggerFactory.getLogger(JsonUtil.class);
 
     /**
-     * 
      * 此方法描述的是：根据key取得相应的值
-     * 
-     * @param map
-     *            欲取值的map
-     * @param key
-     *            key
+     *
+     * @param map 欲取值的map
+     * @param key key
      * @return String
      */
     public static String getString(Map<String, Object> map, String key) {
@@ -44,14 +41,11 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     * 
      * 此方法描述的是：取得list
-     * 
-     * @param map
-     *            欲取值的map
-     * @param key
-     *            key
-     * @return List<Map<String, Object>>
+     *
+     * @param map 欲取值的map
+     * @param key key
+     * @return List<Map < String, Object>>
      */
     @SuppressWarnings("unchecked")
     public static List<Map<String, Object>> getList(Map<String, Object> map, String key) {
@@ -67,13 +61,10 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     * 
      * 此方法描述的是：取得list
-     * 
-     * @param map
-     *            欲取值的map
-     * @param key
-     *            key
+     *
+     * @param map 欲取值的map
+     * @param key key
      * @return Map<String, Object>
      */
     @SuppressWarnings("unchecked")
@@ -87,15 +78,11 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     * 
      * 此方法描述的是：根据key取值int
-     * 
-     * @param map
-     *            欲取值的map
-     * @param key
-     *            key
-     * @param defaultValue
-     *            默认值
+     *
+     * @param map          欲取值的map
+     * @param key          key
+     * @param defaultValue 默认值
      * @return int
      */
     public static int getInt(Map<String, Object> map, String key, int defaultValue) {
@@ -111,15 +98,11 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     * 
      * 此方法描述的是：根据key取BigDecial
-     * 
-     * @param map
-     *            欲取值的map
-     * @param key
-     *            key
-     * @param defaultValue
-     *            默认值
+     *
+     * @param map          欲取值的map
+     * @param key          key
+     * @param defaultValue 默认值
      * @return BigDecimal
      */
     public static BigDecimal getBigDecimal(Map<String, Object> map, String key, BigDecimal defaultValue) {
@@ -127,13 +110,10 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     * 
      * 此方法描述的是：根据key取BigDecial
-     * 
-     * @param map
-     *            欲取值的map
-     * @param key
-     *            key
+     *
+     * @param map 欲取值的map
+     * @param key key
      * @return BigDecimal
      */
     public static BigDecimal getBigDecimal(Map<String, Object> map, String key) {
@@ -141,13 +121,10 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     * 
      * 此方法描述的是：根据key取值int
-     * 
-     * @param map
-     *            欲取值的map
-     * @param key
-     *            key
+     *
+     * @param map 欲取值的map
+     * @param key key
      * @return int
      */
     public static int getInt(Map<String, Object> map, String key) {
@@ -155,15 +132,11 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     * 
      * 此方法描述的是：根据key取得boolean值
-     * 
-     * @param map
-     *            欲取值的map
-     * @param key
-     *            key
-     * @param defaultValue
-     *            默认值
+     *
+     * @param map          欲取值的map
+     * @param key          key
+     * @param defaultValue 默认值
      * @return boolean
      */
     public static boolean getBoolean(Map<String, Object> map, String key, boolean defaultValue) {
@@ -179,13 +152,10 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     * 
      * 此方法描述的是：根据key取得boolean值,默认为false
-     * 
-     * @param map
-     *            欲取值的map
-     * @param key
-     *            key
+     *
+     * @param map 欲取值的map
+     * @param key key
      * @return boolean
      */
     public static boolean getBoolean(Map<String, Object> map, String key) {
@@ -193,13 +163,10 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     * 
      * 此方法描述的是：向obj数组中加新元素,
-     * 
-     * @param list
-     *            list
-     * @param obj
-     *            增加的元素
+     *
+     * @param list list
+     * @param obj  增加的元素
      */
     @SuppressWarnings("unchecked")
     public static void add(List<HashMap<String, Object>> list, Object obj) {
@@ -207,15 +174,11 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     * 
      * 此方法描述的是：根据key取得double值
-     * 
-     * @param map
-     *            欲取值的map
-     * @param key
-     *            key
-     * @param defaultValue
-     *            默认值
+     *
+     * @param map          欲取值的map
+     * @param key          key
+     * @param defaultValue 默认值
      * @return double
      */
     public static double getDouble(Map<String, Object> map, String key, double defaultValue) {
@@ -232,13 +195,10 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     * 
      * 此方法描述的是：根据key取得double值
-     * 
-     * @param map
-     *            欲取值的map
-     * @param key
-     *            key
+     *
+     * @param map 欲取值的map
+     * @param key key
      * @return double
      */
     public static double getDouble(Map<String, Object> map, String key) {
@@ -246,15 +206,11 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     * 
      * 此方法描述的是：根据key取得double值
-     * 
-     * @param map
-     *            欲取值的map
-     * @param key
-     *            key
-     * @param defaultValue
-     *            默认值
+     *
+     * @param map          欲取值的map
+     * @param key          key
+     * @param defaultValue 默认值
      * @return long
      */
     public static long getLong(Map<String, Object> map, String key, long defaultValue) {
@@ -270,13 +226,10 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     * 
      * 此方法描述的是：根据key取得double值
-     * 
-     * @param map
-     *            欲取值的map
-     * @param key
-     *            key
+     *
+     * @param map 欲取值的map
+     * @param key key
      * @return long
      */
     public static long getLong(Map<String, Object> map, String key) {
@@ -284,11 +237,9 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     * 
      * 此方法描述的是：将Object转化为Json格式字符串
-     * 
-     * @param obj
-     *            欲转换的对象
+     *
+     * @param obj 欲转换的对象
      * @return String
      */
     public static String toString(Object obj) {
@@ -300,23 +251,20 @@ public class JsonUtil extends JsonFormatter {
         try {
             return JsonFormatter.toJsonString(obj);
         } catch (JsonGenerationException e) {
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         } catch (JsonMappingException e) {
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         } catch (IOException e) {
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
         return null;
     }
 
     /**
-     * 
      * 此方法描述的是：将Object转化为Json格式字符串
-     * 
-     * @param obj
-     *            欲转换的对象
-     * @param dateFormat
-     *            日期format
+     *
+     * @param obj        欲转换的对象
+     * @param dateFormat 日期format
      * @return String
      */
     public static String toString(Object obj, DateFormat dateFormat) {
@@ -339,15 +287,11 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     * 
      * 此方法描述的是：将传入的对象转换成指定的对象
-     * 
-     * @param <T>
-     *            模板类
-     * @param cls
-     *            与转化的类
-     * @param obj
-     *            被转换的对象
+     *
+     * @param <T> 模板类
+     * @param cls 与转化的类
+     * @param obj 被转换的对象
      * @return T
      */
     public static <T> T toBean(Object obj, Class<T> cls) {
@@ -369,15 +313,11 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     *
      * 此方法描述的是：将传入的对象转换成指定的对象
      *
-     * @param <T>
-     *            模板类
-     * @param cls
-     *            与转化的类
-     * @param obj
-     *            被转换的对象
+     * @param <T> 模板类
+     * @param cls 与转化的类
+     * @param obj 被转换的对象
      * @return T
      */
     public static <T> T toBean(Object obj, TypeReference cls) {
@@ -397,13 +337,12 @@ public class JsonUtil extends JsonFormatter {
         }
         return null;
     }
+
     /**
-     * 
      * 此方法描述的是：字符串转换为List<map>
-     * 
-     * @param obj
-     *            与转换的对象
-     * @return List<Map<String, Object>>
+     *
+     * @param obj 与转换的对象
+     * @return List<Map < String, Object>>
      */
     @SuppressWarnings("unchecked")
     public static List<Map<String, Object>> toList(Object obj) {
@@ -421,17 +360,12 @@ public class JsonUtil extends JsonFormatter {
     }
 
     /**
-     * 
      * 此方法描述的是：字符串转换为List
-     * 
-     * @param <T>
-     *            模板类
-     * @param cls
-     *            与转化的类
-     * @param obj
-     *            被转换的对象
+     *
+     * @param <T> 模板类
+     * @param cls 与转化的类
+     * @param obj 被转换的对象
      * @return T
-     * 
      */
     @SuppressWarnings("unchecked")
     public static <T> List<T> toList(Object obj, Class<T> cls) {
@@ -454,11 +388,11 @@ public class JsonUtil extends JsonFormatter {
         try {
             map = JsonUtil.toObject(json.toString(), Map.class);
         } catch (JsonParseException e1) {
-        	 LOG.error(e1.getMessage(),e1);
+            LOG.error(e1.getMessage(), e1);
         } catch (JsonMappingException e1) {
-        	LOG.error(e1.getMessage(),e1);
+            LOG.error(e1.getMessage(), e1);
         } catch (IOException e1) {
-        	LOG.error(e1.getMessage(),e1);
+            LOG.error(e1.getMessage(), e1);
         }
         return map;
     }
